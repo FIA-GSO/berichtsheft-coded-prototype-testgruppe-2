@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/Nachweis_Detailansicht.css">
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="menu-icon">☰</div>
+        <div class="logo">
+            <span class="logo-icon">📖</span>
+            <span class="logo-text">Berichtsheft Tool</span>
+        </div>
+        <button class="btn_ban" onclick="location.href='loginpage.html'">Login</button>
+    </div>
+
+
+    <main class="container">
+        <h1 class="title">Nachweis</h1>
+
+        <!-- Info-Box -->
+        <section class="info-box">
+            <div><strong>Zeitraum:</strong> 06.10 - 13.10.2025</div>
+            <div><strong>Ausbildungsabteilung:</strong> <input type="text" class="" value="dev-ops"></div>
+            <div>
+                <strong>Wochenstunden:</strong>
+                <input type="number" id="weekly-hours" value="40" min="1">
+            </div>
+
+        </section>
+
+        <!-- Tabelle / Liste -->
+        <section class="table">
+            <div class="table-header">
+                <span>Aktivität</span>
+                <span>Zeitraum</span>
+                <span>Stunden</span>
+            </div>
+
+            <!-- Montag -->
+            <div class="day">
+                <h2>Montag</h2>
+                <div class="row">
+                    <span>Teammeeting</span>
+                    <div class="dropdown-container">
+                        <select class="dropdown">
+                            <option value="tag" selected>Tag</option>
+                            <option value="tage">Tage</option>
+                            <option value="woche">Woche</option>
+                        </select>
+                        <div class="day-checkboxes" style="display:none;"></div>
+                    </div>
+                    <input type="number" class="hours" value="1" min="0">
+                </div>
+                <div class="add-row">➕</div>
+                <div class="day-total"><strong>Tagesstunden:</strong> <span>0</span></div>
+            </div>
+
+            <!-- Weitere Tage -->
+            <div class="day">
+                <h2>Dienstag</h2>
+                <div class="row">
+                    <span>Entwicklung</span>
+                    <select class="dropdown">
+                        <option value="tag">Tag</option>
+                        <option value="tage">Tage</option>
+                        <option value="woche" selected>Woche</option>
+                    </select>
+                    <input type="number" class="hours" value="1" min="0">
+                </div>
+                <div class="add-row">➕</div>
+                <div class="day-total"><strong>Tagesstunden:</strong> <span>0</span></div>
+            </div>
+
+            <div class="day">
+                <h2>Mittwoch</h2>
+                <div class="row">
+                    <span>Entwicklung</span>
+                    <select class="dropdown">
+                        <option value="tag">Tag</option>
+                        <option value="tage">Tage</option>
+                        <option value="woche" selected>Woche</option>
+                    </select>
+                    <input type="number" class="hours" value="1" min="0">
+                </div>
+                <div class="add-row">➕</div>
+                <div class="day-total"><strong>Tagesstunden:</strong> <span>0</span></div>
+            </div>
+
+            <div class="day">
+                <h2>Donnerstag</h2>
+                <div class="row">
+                    <span>Entwicklung</span>
+                    <select class="dropdown">
+                        <option value="tag">Tag</option>
+                        <option value="tage">Tage</option>
+                        <option value="woche" selected>Woche</option>
+                    </select>
+                    <input type="number" class="hours" value="1" min="0">
+                </div>
+                <div class="add-row">➕</div>
+                <div class="day-total"><strong>Tagesstunden:</strong> <span>0</span></div>
+            </div>
+
+            <div class="day">
+                <h2>Freitag</h2>
+                <div class="row">
+                    <span>Entwicklung</span>
+                    <select class="dropdown">
+                        <option value="tag">Tag</option>
+                        <option value="tage">Tage</option>
+                        <option value="woche" selected>Woche</option>
+                    </select>
+                    <input type="number" class="hours" value="1" min="0">
+                </div>
+                <div class="add-row">➕</div>
+                <div class="day-total"><strong>Tagesstunden:</strong> <span>0</span></div>
+            </div>
+
+        </section>
+
+        <!-- Gesamtstunden -->
+        <div class="total">
+            <strong>Gesamtstunden:</strong> <span id="total-hours">0</span>
+        </div>
+        <div id="warning" class="warning" style="display:none;">
+            Angegebene Wochenstunden (<span id="weekly-value">40</span>) noch nicht erreicht
+        </div>
+        <div id="activity-warning" class="activity-warning" style="display:none;">
+            Tagesaktivität darf nicht länger als 8 Stunden sein
+        </div>
+
+
+
+        <!-- Buttons -->
+        <div class="actions">
+            <button class="btn save">Speichern</button>
+            <button class="btn submit" id="submit-btn" disabled>Absenden</button>
+        </div>
+    </main>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const weeklyInput = document.getElementById('weekly-hours');
+            const submitBtn = document.getElementById('submit-btn');
+            const warning = document.getElementById('warning');
+            const weeklyValueSpan = document.getElementById('weekly-value');
+
+
+
+            function calculateTotals() {
+                let total = 0;
+                let invalidActivity = false; 
+                document.querySelectorAll('.day').forEach(day => {
+                    let dayTotal = 0;
+                    day.querySelectorAll('.hours').forEach(input => {
+                        const value = parseFloat(input.value) || 0;
+                        dayTotal += value;
+                        // Prüfen, ob eine Aktivität > 8 Stunden ist
+                        if (value > 8) {
+                            invalidActivity = true;
+                        }
+                    });
+                    day.querySelector('.day-total span').textContent = dayTotal;
+                    total += dayTotal;
+                });
+                document.getElementById('total-hours').textContent = total;
+
+                const weeklyHours = parseFloat(weeklyInput.value) || 0;
+                //weeklyValueSpan.textContent = weeklyHours;
+                const activityWarning = document.getElementById('activity-warning');
+
+                
+                if (invalidActivity) {
+                    activityWarning.style.display = 'block';
+                    submitBtn.disabled = true; // Button bleibt deaktiviert
+                    //warning.style.display = 'none'; // Wochenstunden-Warnung ausblenden
+                }else {
+                    activityWarning.style.display = 'none';
+                } 
+                if (total >= weeklyHours && weeklyHours > 0) {
+                    submitBtn.disabled = false;
+                    warning.style.display = 'none';
+                } else {
+                    submitBtn.disabled = true;
+                    warning.style.display = 'block';
+                }
+            }
+
+            // Event Listener für Stundenfelder
+            document.querySelectorAll('.hours').forEach(input => {
+                input.addEventListener('input', calculateTotals);
+            });
+            weeklyInput.addEventListener('input', calculateTotals);
+
+            // Checkbox-Logik für Dropdown
+            document.querySelectorAll('.dropdown').forEach(select => {
+                select.addEventListener('change', () => {
+                    const container = select.parentElement.querySelector('.day-checkboxes');
+                    if (select.value === 'tage') {
+                        container.style.display = 'flex';
+                        container.innerHTML = `
+                    <label>Mo <input type="checkbox" value="Mo"></label>
+                    <label>Di <input type="checkbox" value="Di"></label>
+                    <label>Mi <input type="checkbox" value="Mi"></label>
+                    <label>Do <input type="checkbox" value="Do"></label>
+                    <label>Fr <input type="checkbox" value="Fr"></label>
+                `;
+                    } else {
+                        container.style.display = 'none';
+                        container.innerHTML = '';
+                    }
+                });
+            });
+            
+            calculateTotals();
+        });
+    </script>
+
+
+</body>
+
+</html>
