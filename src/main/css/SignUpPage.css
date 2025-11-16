@@ -1,0 +1,144 @@
+/* --- Grundlayout --- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Navbar --- */
+header {
+    width: 100%;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #e9e9e9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    box-sizing: border-box;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.menu {
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+.nav-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.book {
+    font-size: 1.7rem;
+}
+
+.title {
+    font-weight: 500;
+}
+
+/* --- Home Button --- */
+.home-btn {
+    background-color: #8d94f7;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.home-btn:hover {
+    background-color: #7c83f3;
+}
+
+/* --- Hauptinhalt --- */
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    margin-top: 2rem;
+    gap: 2rem;
+}
+
+/* --- Boxen --- */
+figure {
+    background-color: #f4f4f4;
+    border-radius: 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    padding: 1.8rem 1.6rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+figure h1 {
+    text-align: center;
+    color: #777;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+}
+
+/* --- Formularfelder --- */
+label {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.3rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 1rem;
+    outline: none;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+input,
+select {
+    display: block;
+}
+
+input:focus,
+select:focus {
+    box-shadow: 0 0 0 2px #8d94f7;
+}
+
+/* --- Button unten --- */
+.finish-btn {
+    display: block;
+    width: 60%;
+    margin: 1.5rem auto 0;
+    padding: 0.7rem;
+    background-color: #8d94f7;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.15);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.finish-btn:hover {
+    background-color: #7c83f3;
+}
